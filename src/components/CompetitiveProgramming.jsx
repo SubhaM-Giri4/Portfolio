@@ -10,20 +10,22 @@ export default function CompetitiveProgramming() {
     useEffect(() => {
         fetch("https://leetcode-stats-api.herokuapp.com/SubhaM_Giri")
             .then(res => res.json())
-            .then(data => setLeetCode(data));
+            .then(data => setLeetCode(data))
+            .catch(() => console.log("LeetCode API error"));
     }, []);
 
     useEffect(() => {
         fetch("https://codeforces.com/api/user.info?handles=Skryy")
             .then(res => res.json())
-            .then(data => setCF(data.result[0]));
+            .then(data => setCF(data.result[0]))
+            .catch(() => console.log("Codeforces API error"));
     }, []);
 
     useEffect(() => {
         fetch("https://codechef-api.vercel.app/user/subham_giri")
             .then(res => res.json())
             .then(data => setCC(data))
-            .catch(e => console.log("CodeChef API fallback"));
+            .catch(() => console.log("CodeChef API fallback"));
     }, []);
 
     return (
@@ -36,14 +38,18 @@ export default function CompetitiveProgramming() {
 
                 <div className="grid md:grid-cols-3 gap-6 mt-10">
 
+                    {/* LeetCode */}
                     <div className="p-5 border rounded-xl bg-white dark:bg-gray-900 shadow">
                         <h3 className="font-bold text-xl text-purple-500">LeetCode</h3>
+
                         {leetcode ? (
                             <>
                                 <p className="mt-2 text-lg opacity-90">
                                     Rating: <span className="font-bold">{leetcode.rating}</span>
                                 </p>
-                                <p className="opacity-70">Total Solved: {leetcode.totalSolved}</p>
+                                <p className="opacity-70">
+                                    Total Solved: {leetcode.totalSolved}
+                                </p>
                             </>
                         ) : (
                             <p className="opacity-70 mt-2">Loading...</p>
@@ -52,14 +58,17 @@ export default function CompetitiveProgramming() {
                         <a
                             href="https://leetcode.com/SubhaM_Giri"
                             target="_blank"
+                            rel="noopener noreferrer"
                             className="flex gap-2 items-center justify-center mt-4 text-purple-400 hover:underline"
                         >
                             View Profile <ExternalLink size={16} />
                         </a>
                     </div>
 
+                    {/* Codeforces */}
                     <div className="p-5 border rounded-xl bg-white dark:bg-gray-900 shadow">
                         <h3 className="font-bold text-xl text-purple-500">Codeforces</h3>
+
                         {cf ? (
                             <>
                                 <p className="mt-2 text-lg opacity-90">
@@ -75,12 +84,14 @@ export default function CompetitiveProgramming() {
                         <a
                             href="https://codeforces.com/profile/Skryy"
                             target="_blank"
+                            rel="noopener noreferrer"
                             className="flex gap-2 items-center justify-center mt-4 text-purple-400 hover:underline"
                         >
                             View Profile <ExternalLink size={16} />
                         </a>
                     </div>
 
+                    {/* CodeChef */}
                     <div className="p-5 border rounded-xl bg-white dark:bg-gray-900 shadow">
                         <h3 className="font-bold text-xl text-purple-500">CodeChef</h3>
 
@@ -89,8 +100,12 @@ export default function CompetitiveProgramming() {
                                 <p className="mt-2 text-lg opacity-90">
                                     Rating: <span className="font-bold">{cc.userDetails.rating}</span>
                                 </p>
-                                <p className="opacity-70">Stars: ⭐ {cc.userDetails.stars}</p>
-                                <p className="opacity-70">Highest: {cc.userDetails.highest_rating}</p>
+                                <p className="opacity-70">
+                                    Stars: ⭐ {cc.userDetails.stars}
+                                </p>
+                                <p className="opacity-70">
+                                    Highest: {cc.userDetails.highest_rating}
+                                </p>
                             </>
                         ) : (
                             <p className="opacity-70 mt-2">Loading...</p>
@@ -99,6 +114,7 @@ export default function CompetitiveProgramming() {
                         <a
                             href="https://www.codechef.com/users/subham_giri"
                             target="_blank"
+                            rel="noopener noreferrer"
                             className="flex gap-2 items-center justify-center mt-4 text-purple-400 hover:underline"
                         >
                             View Profile <ExternalLink size={16} />
